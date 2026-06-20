@@ -69,10 +69,19 @@ function goPage(p: number) {
         class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
         @click="goPrev"
       >
-        <ChevronLeft class="h-4 w-4" :stroke-width="2" />
+        <ChevronLeft
+          class="h-4 w-4"
+          :stroke-width="2"
+        />
       </button>
-      <template v-for="(p, i) in pageNumbers" :key="`${p}-${i}`">
-        <span v-if="p === '...'" class="px-2 text-sm text-zinc-400">...</span>
+      <template
+        v-for="(p, i) in pageNumbers"
+        :key="`${p}-${i}`"
+      >
+        <span
+          v-if="p === '...'"
+          class="px-2 text-sm text-zinc-400"
+        >...</span>
         <button
           v-else
           type="button"
@@ -93,7 +102,10 @@ function goPage(p: number) {
         class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
         @click="goNext"
       >
-        <ChevronRight class="h-4 w-4" :stroke-width="2" />
+        <ChevronRight
+          class="h-4 w-4"
+          :stroke-width="2"
+        />
       </button>
     </div>
   </div>

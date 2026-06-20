@@ -32,11 +32,18 @@ function isActive(path: string) {
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center gap-3">
           <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white">
-            <Store class="h-5 w-5" :stroke-width="2" />
+            <Store
+              class="h-5 w-5"
+              :stroke-width="2"
+            />
           </div>
           <div>
-            <h1 class="text-base font-bold text-zinc-800">门店对账系统</h1>
-            <p class="text-xs text-zinc-400">收益提现 · 分账管理</p>
+            <h1 class="text-base font-bold text-zinc-800">
+              门店对账系统
+            </h1>
+            <p class="text-xs text-zinc-400">
+              收益提现 · 分账管理
+            </p>
           </div>
         </div>
 
@@ -53,7 +60,11 @@ function isActive(path: string) {
             )"
             @click="navigate(item.path)"
           >
-            <component :is="item.icon" class="h-4 w-4" :stroke-width="2" />
+            <component
+              :is="item.icon"
+              class="h-4 w-4"
+              :stroke-width="2"
+            />
             {{ item.name }}
           </button>
         </div>
@@ -63,8 +74,16 @@ function isActive(path: string) {
           class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg text-zinc-600 transition hover:bg-zinc-100"
           @click="mobileMenuOpen = !mobileMenuOpen"
         >
-          <Menu v-if="!mobileMenuOpen" class="h-5 w-5" :stroke-width="2" />
-          <X v-else class="h-5 w-5" :stroke-width="2" />
+          <Menu
+            v-if="!mobileMenuOpen"
+            class="h-5 w-5"
+            :stroke-width="2"
+          />
+          <X
+            v-else
+            class="h-5 w-5"
+            :stroke-width="2"
+          />
         </button>
       </div>
     </div>
@@ -77,7 +96,10 @@ function isActive(path: string) {
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-1"
     >
-      <div v-if="mobileMenuOpen" class="md:hidden border-t border-zinc-100 bg-white">
+      <div
+        v-if="mobileMenuOpen"
+        class="md:hidden border-t border-zinc-100 bg-white"
+      >
         <div class="space-y-1 px-4 py-3">
           <button
             v-for="item in navItems"
@@ -91,7 +113,11 @@ function isActive(path: string) {
             )"
             @click="navigate(item.path)"
           >
-            <component :is="item.icon" class="h-5 w-5" :stroke-width="2" />
+            <component
+              :is="item.icon"
+              class="h-5 w-5"
+              :stroke-width="2"
+            />
             {{ item.name }}
           </button>
         </div>

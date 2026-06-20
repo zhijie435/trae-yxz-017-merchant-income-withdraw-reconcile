@@ -148,8 +148,12 @@ onMounted(() => {
   <section class="mt-10">
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h2 class="text-lg font-bold text-zinc-800">收益记录</h2>
-        <p class="mt-1 text-sm text-zinc-400">查看与筛选门店收益明细，支持一键导出对账</p>
+        <h2 class="text-lg font-bold text-zinc-800">
+          收益记录
+        </h2>
+        <p class="mt-1 text-sm text-zinc-400">
+          查看与筛选门店收益明细，支持一键导出对账
+        </p>
       </div>
       <button
         type="button"
@@ -157,9 +161,20 @@ onMounted(() => {
         class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
         @click="handleExport"
       >
-        <FileSpreadsheet v-if="!exporting" class="h-4 w-4" :stroke-width="2" />
-        <Loader v-else class="h-4 w-4 animate-spin" :stroke-width="2" />
-        <Download class="h-4 w-4" :stroke-width="2" />
+        <FileSpreadsheet
+          v-if="!exporting"
+          class="h-4 w-4"
+          :stroke-width="2"
+        />
+        <Loader
+          v-else
+          class="h-4 w-4 animate-spin"
+          :stroke-width="2"
+        />
+        <Download
+          class="h-4 w-4"
+          :stroke-width="2"
+        />
         {{ exporting ? '导出中...' : '导出 Excel' }}
       </button>
     </div>
@@ -168,18 +183,27 @@ onMounted(() => {
       v-if="statsError"
       class="mb-4 flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 p-4"
     >
-      <AlertCircle class="h-5 w-5 shrink-0 text-red-500" :stroke-width="2" />
+      <AlertCircle
+        class="h-5 w-5 shrink-0 text-red-500"
+        :stroke-width="2"
+      />
       <span class="text-sm text-red-600">{{ statsError }}</span>
     </div>
 
-    <div v-if="statsLoading" class="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      v-if="statsLoading"
+      class="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+    >
       <div
         v-for="i in 4"
         :key="i"
         class="h-32 animate-pulse rounded-2xl bg-white shadow-card"
-      ></div>
+      />
     </div>
-    <div v-else-if="stats" class="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      v-else-if="stats"
+      class="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+    >
       <div
         v-for="(cfg, idx) in statConfigs"
         :key="cfg.key"
@@ -204,7 +228,11 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <span class="text-sm font-medium text-zinc-500">{{ cfg.label }}</span>
             <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-700 transition-transform duration-300 group-hover:scale-110">
-              <component :is="cfg.icon" class="h-5 w-5" :stroke-width="2" />
+              <component
+                :is="cfg.icon"
+                class="h-5 w-5"
+                :stroke-width="2"
+              />
             </span>
           </div>
           <div class="mt-4 flex items-baseline font-mono">
@@ -213,7 +241,10 @@ onMounted(() => {
             </span>
             <span class="ml-1 text-base font-medium text-zinc-400">笔</span>
           </div>
-          <p v-if="cfg.description" class="mt-3 text-xs text-zinc-400">
+          <p
+            v-if="cfg.description"
+            class="mt-3 text-xs text-zinc-400"
+          >
             {{ cfg.description }}
           </p>
         </div>
@@ -233,7 +264,10 @@ onMounted(() => {
       v-if="listError"
       class="mb-4 flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 p-4"
     >
-      <AlertCircle class="h-5 w-5 shrink-0 text-red-500" :stroke-width="2" />
+      <AlertCircle
+        class="h-5 w-5 shrink-0 text-red-500"
+        :stroke-width="2"
+      />
       <span class="text-sm text-red-600">{{ listError }}</span>
       <button
         type="button"

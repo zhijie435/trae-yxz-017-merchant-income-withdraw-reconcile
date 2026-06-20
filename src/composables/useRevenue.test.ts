@@ -352,6 +352,20 @@ describe('useRevenue - 收益统计与列表', () => {
       return new Response(blob, { status: 200, headers })
     }
 
+    function captureCreatedLink() {
+      let createdLink: HTMLAnchorElement | null = null
+      const originalCreateElement = document.createElement.bind(document)
+      vi.spyOn(document, 'createElement').mockImplementation((tagName) => {
+        const element = originalCreateElement(tagName)
+        if (tagName === 'a') {
+          createdLink = element as HTMLAnchorElement
+          vi.spyOn(createdLink, 'click').mockImplementation(() => {})
+        }
+        return element
+      })
+      return () => createdLink
+    }
+
     beforeEach(() => {
       document.body.innerHTML = ''
       vi.spyOn(window.URL, 'createObjectURL').mockImplementation(
@@ -361,6 +375,7 @@ describe('useRevenue - 收益统计与列表', () => {
     })
 
     it('成功导出收益明细Excel', async () => {
+      const getCreatedLink = captureCreatedLink()
       vi.spyOn(global, 'fetch').mockResolvedValueOnce(
         createExportResponse(
           mockExcelBlob,
@@ -376,11 +391,13 @@ describe('useRevenue - 收益统计与列表', () => {
       await promise
 
       expect(exporting.value).toBe(false)
-      const links = document.querySelectorAll('a')
-      expect(links.length).toBe(1)
+      const link = getCreatedLink()
+      expect(link).not.toBeNull()
+      expect(link!.click).toHaveBeenCalled()
     })
 
     it('默认文件名解析正确', async () => {
+      const getCreatedLink = captureCreatedLink()
       vi.spyOn(global, 'fetch').mockResolvedValueOnce(
         createExportResponse(mockExcelBlob),
       )
@@ -388,11 +405,12 @@ describe('useRevenue - 收益统计与列表', () => {
       const { exportExcel } = useRevenue()
       await exportExcel({})
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe('收益明细.xlsx')
+      const link = getCreatedLink()
+      expect(link!.download).toBe('收益明细.xlsx')
     })
 
     it('从 Content-Disposition 解析 UTF-8 编码文件名', async () => {
+      const getCreatedLink = captureCreatedLink()
       const encodedFileName = encodeURIComponent('门店收益_2024年1月.xlsx')
       vi.spyOn(global, 'fetch').mockResolvedValueOnce(
         createExportResponse(
@@ -404,8 +422,8 @@ describe('useRevenue - 收益统计与列表', () => {
       const { exportExcel } = useRevenue()
       await exportExcel({})
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe('门店收益_2024年1月.xlsx')
+      const link = getCreatedLink()
+      expect(link!.download).toBe('门店收益_2024年1月.xlsx')
     })
 
     it('无筛选条件导出时URL中不包含分页参数', async () => {

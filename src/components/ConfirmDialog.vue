@@ -73,17 +73,31 @@ function handleCancel() {
                 successState ? 'bg-emerald-100' : type === 'danger' ? 'bg-red-100' : 'bg-zinc-100',
               )"
             >
-              <CheckCircle v-if="successState" class="h-8 w-8 text-emerald-600" :stroke-width="2" />
-              <AlertCircle v-else :class="cn('h-8 w-8', type === 'danger' ? 'text-red-600' : 'text-zinc-600')" :stroke-width="2" />
+              <CheckCircle
+                v-if="successState"
+                class="h-8 w-8 text-emerald-600"
+                :stroke-width="2"
+              />
+              <AlertCircle
+                v-else
+                :class="cn('h-8 w-8', type === 'danger' ? 'text-red-600' : 'text-zinc-600')"
+                :stroke-width="2"
+              />
             </div>
             <h3 class="text-lg font-bold text-zinc-800">
               {{ successState ? successTitle : title }}
             </h3>
-            <p v-if="!successState && message" class="mt-2 text-sm text-zinc-500">
+            <p
+              v-if="!successState && message"
+              class="mt-2 text-sm text-zinc-500"
+            >
               {{ message }}
             </p>
           </div>
-          <div v-if="!successState" class="flex items-center justify-center gap-3 border-t border-zinc-100 px-6 py-4">
+          <div
+            v-if="!successState"
+            class="flex items-center justify-center gap-3 border-t border-zinc-100 px-6 py-4"
+          >
             <button
               type="button"
               class="flex-1 rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-600 shadow-sm transition hover:bg-zinc-50"
@@ -100,7 +114,10 @@ function handleCancel() {
               )"
               @click="handleConfirm"
             >
-              <span v-if="confirmLoading" class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+              <span
+                v-if="confirmLoading"
+                class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+              />
               {{ confirmText }}
             </button>
           </div>

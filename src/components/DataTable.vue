@@ -51,7 +51,10 @@ function handleRetry() {
       v-if="error"
       class="flex items-center gap-3 border-b border-zinc-100 bg-red-50 p-4"
     >
-      <AlertCircle class="h-5 w-5 shrink-0 text-red-500" :stroke-width="2" />
+      <AlertCircle
+        class="h-5 w-5 shrink-0 text-red-500"
+        :stroke-width="2"
+      />
       <span class="text-sm text-red-600">{{ error }}</span>
       <button
         v-if="onRetry || $attrs.onRetry"
@@ -81,8 +84,15 @@ function handleRetry() {
           </tr>
         </thead>
 
-        <tbody v-if="!loading && data" class="divide-y divide-zinc-50">
-          <tr v-for="(row, idx) in data.list" :key="row.id || idx" class="transition hover:bg-zinc-50/70">
+        <tbody
+          v-if="!loading && data"
+          class="divide-y divide-zinc-50"
+        >
+          <tr
+            v-for="(row, idx) in data.list"
+            :key="row.id || idx"
+            class="transition hover:bg-zinc-50/70"
+          >
             <td
               v-for="col in columns"
               :key="col.key"
@@ -92,14 +102,22 @@ function handleRetry() {
                 col.className || '',
               ]"
             >
-              <slot v-if="$slots[`col-${col.key}`]" :name="`col-${col.key}`" :row="row" :index="idx" />
+              <slot
+                v-if="$slots[`col-${col.key}`]"
+                :name="`col-${col.key}`"
+                :row="row"
+                :index="idx"
+              />
               <template v-else>
                 <component :is="col.render ? col.render(row, idx) : row[col.key]" />
               </template>
             </td>
           </tr>
           <tr v-if="data.list.length === 0">
-            <td :colspan="columns.length" class="px-5 py-16 text-center text-sm text-zinc-400">
+            <td
+              :colspan="columns.length"
+              class="px-5 py-16 text-center text-sm text-zinc-400"
+            >
               {{ emptyText }}
             </td>
           </tr>
@@ -107,7 +125,10 @@ function handleRetry() {
 
         <tbody v-else-if="loading">
           <tr>
-            <td :colspan="columns.length" class="px-5 py-16">
+            <td
+              :colspan="columns.length"
+              class="px-5 py-16"
+            >
               <div class="flex flex-col items-center justify-center gap-3 text-zinc-400">
                 <div class="h-8 w-8 animate-spin rounded-full border-2 border-zinc-200 border-t-brand-600" />
                 <span class="text-sm">加载中...</span>

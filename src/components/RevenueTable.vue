@@ -81,20 +81,47 @@ const pageNumbers = computed(() => {
       <table class="min-w-full divide-y divide-zinc-100 text-sm">
         <thead class="bg-zinc-50">
           <tr>
-            <th class="px-5 py-3 text-left font-medium text-zinc-500">收益单号</th>
-            <th class="px-5 py-3 text-left font-medium text-zinc-500">关联订单</th>
-            <th class="px-5 py-3 text-left font-medium text-zinc-500">交易时间</th>
-            <th class="px-5 py-3 text-left font-medium text-zinc-500">类型</th>
-            <th class="px-5 py-3 text-right font-medium text-zinc-500">金额</th>
-            <th class="px-5 py-3 text-left font-medium text-zinc-500">状态</th>
-            <th class="px-5 py-3 text-left font-medium text-zinc-500">备注</th>
+            <th class="px-5 py-3 text-left font-medium text-zinc-500">
+              收益单号
+            </th>
+            <th class="px-5 py-3 text-left font-medium text-zinc-500">
+              关联订单
+            </th>
+            <th class="px-5 py-3 text-left font-medium text-zinc-500">
+              交易时间
+            </th>
+            <th class="px-5 py-3 text-left font-medium text-zinc-500">
+              类型
+            </th>
+            <th class="px-5 py-3 text-right font-medium text-zinc-500">
+              金额
+            </th>
+            <th class="px-5 py-3 text-left font-medium text-zinc-500">
+              状态
+            </th>
+            <th class="px-5 py-3 text-left font-medium text-zinc-500">
+              备注
+            </th>
           </tr>
         </thead>
-        <tbody v-if="!loading && data" class="divide-y divide-zinc-50">
-          <tr v-for="row in data.list" :key="row.id" class="transition hover:bg-zinc-50/70">
-            <td class="px-5 py-4 font-mono text-xs text-zinc-600">{{ row.id }}</td>
-            <td class="px-5 py-4 font-mono text-xs text-zinc-600">{{ row.orderNo }}</td>
-            <td class="px-5 py-4 text-zinc-700">{{ formatDateTime(row.tradeTime) }}</td>
+        <tbody
+          v-if="!loading && data"
+          class="divide-y divide-zinc-50"
+        >
+          <tr
+            v-for="row in data.list"
+            :key="row.id"
+            class="transition hover:bg-zinc-50/70"
+          >
+            <td class="px-5 py-4 font-mono text-xs text-zinc-600">
+              {{ row.id }}
+            </td>
+            <td class="px-5 py-4 font-mono text-xs text-zinc-600">
+              {{ row.orderNo }}
+            </td>
+            <td class="px-5 py-4 text-zinc-700">
+              {{ formatDateTime(row.tradeTime) }}
+            </td>
             <td class="px-5 py-4">
               <span class="inline-flex items-center rounded-md bg-zinc-100 px-2 py-0.5 text-xs text-zinc-700">
                 {{ row.type }}
@@ -117,21 +144,33 @@ const pageNumbers = computed(() => {
                   statusBadgeClassMap[row.status],
                 )"
               >
-                <component :is="statusIcon(row.status)" class="h-3 w-3" :stroke-width="2" />
+                <component
+                  :is="statusIcon(row.status)"
+                  class="h-3 w-3"
+                  :stroke-width="2"
+                />
                 {{ statusLabelMap[row.status] }}
               </span>
             </td>
-            <td class="px-5 py-4 text-zinc-600">{{ row.remark }}</td>
+            <td class="px-5 py-4 text-zinc-600">
+              {{ row.remark }}
+            </td>
           </tr>
           <tr v-if="data.list.length === 0">
-            <td colspan="7" class="px-5 py-16 text-center text-sm text-zinc-400">
+            <td
+              colspan="7"
+              class="px-5 py-16 text-center text-sm text-zinc-400"
+            >
               暂无收益记录
             </td>
           </tr>
         </tbody>
         <tbody v-else-if="loading">
           <tr>
-            <td colspan="7" class="px-5 py-16">
+            <td
+              colspan="7"
+              class="px-5 py-16"
+            >
               <div class="flex flex-col items-center justify-center gap-3 text-zinc-400">
                 <div class="h-8 w-8 animate-spin rounded-full border-2 border-zinc-200 border-t-brand-600" />
                 <span class="text-sm">加载中...</span>
@@ -156,10 +195,19 @@ const pageNumbers = computed(() => {
           class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
           @click="goPrev"
         >
-          <ChevronLeft class="h-4 w-4" :stroke-width="2" />
+          <ChevronLeft
+            class="h-4 w-4"
+            :stroke-width="2"
+          />
         </button>
-        <template v-for="(p, i) in pageNumbers" :key="`${p}-${i}`">
-          <span v-if="p === '...'" class="px-2 text-sm text-zinc-400">...</span>
+        <template
+          v-for="(p, i) in pageNumbers"
+          :key="`${p}-${i}`"
+        >
+          <span
+            v-if="p === '...'"
+            class="px-2 text-sm text-zinc-400"
+          >...</span>
           <button
             v-else
             type="button"
@@ -180,7 +228,10 @@ const pageNumbers = computed(() => {
           class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
           @click="goNext"
         >
-          <ChevronRight class="h-4 w-4" :stroke-width="2" />
+          <ChevronRight
+            class="h-4 w-4"
+            :stroke-width="2"
+          />
         </button>
       </div>
     </div>

@@ -90,7 +90,22 @@ describe('useExport - 导出Excel通用功能', () => {
       })
     }
 
+    function captureCreatedLink() {
+      let createdLink: HTMLAnchorElement | null = null
+      const originalCreateElement = document.createElement.bind(document)
+      vi.spyOn(document, 'createElement').mockImplementation((tagName) => {
+        const element = originalCreateElement(tagName)
+        if (tagName === 'a') {
+          createdLink = element as HTMLAnchorElement
+          vi.spyOn(createdLink, 'click').mockImplementation(() => {})
+        }
+        return element
+      })
+      return () => createdLink
+    }
+
     it('成功导出并创建下载链接', async () => {
+      const getCreatedLink = captureCreatedLink()
       const mockFn = vi.fn().mockResolvedValue(
         createExportResponse(mockExcelBlob, 'attachment; filename="test_export.xlsx"'),
       )
@@ -106,15 +121,16 @@ describe('useExport - 导出Excel通用功能', () => {
       expect(result).toBe(true)
       expect(mockFn).toHaveBeenCalledTimes(1)
 
-      const links = document.querySelectorAll('a')
-      expect(links.length).toBe(1)
-      const link = links[0] as HTMLAnchorElement
-      expect(link.download).toBe('test_export.xlsx')
-      expect(link.href).toContain('mock-url-')
-      expect(document.body.contains(link)).toBe(false)
+      const link = getCreatedLink()
+      expect(link).not.toBeNull()
+      expect(link!.download).toBe('test_export.xlsx')
+      expect(link!.href).toContain('mock-url-')
+      expect(link!.click).toHaveBeenCalled()
+      expect(document.body.contains(link!)).toBe(false)
     })
 
     it('从 Content-Disposition 解析中文文件名', async () => {
+      const getCreatedLink = captureCreatedLink()
       const fileName = '收益明细_2024.xlsx'
       const mockFn = vi.fn().mockResolvedValue(
         createExportResponse(mockExcelBlob, `attachment; filename="${fileName}"`),
@@ -123,11 +139,12 @@ describe('useExport - 导出Excel通用功能', () => {
       const { handleExport } = useExport()
       await handleExport(mockFn)
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe(fileName)
+      const link = getCreatedLink()
+      expect(link!.download).toBe(fileName)
     })
 
     it('无 Content-Disposition 时使用 fallback 文件名', async () => {
+      const getCreatedLink = captureCreatedLink()
       const mockFn = vi.fn().mockResolvedValue(
         createExportResponse(mockExcelBlob),
       )
@@ -135,11 +152,12 @@ describe('useExport - 导出Excel通用功能', () => {
       const { handleExport } = useExport()
       await handleExport(mockFn, 'fallback_name.xlsx')
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe('fallback_name.xlsx')
+      const link = getCreatedLink()
+      expect(link!.download).toBe('fallback_name.xlsx')
     })
 
     it('无 Content-Disposition 且无 fallback 时使用 options 默认文件名', async () => {
+      const getCreatedLink = captureCreatedLink()
       const mockFn = vi.fn().mockResolvedValue(
         createExportResponse(mockExcelBlob),
       )
@@ -147,11 +165,12 @@ describe('useExport - 导出Excel通用功能', () => {
       const { handleExport } = useExport({ fileName: 'default_export.xlsx' })
       await handleExport(mockFn)
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe('default_export.xlsx')
+      const link = getCreatedLink()
+      expect(link!.download).toBe('default_export.xlsx')
     })
 
     it('均无文件名时使用自动生成文件名', async () => {
+      const getCreatedLink = captureCreatedLink()
       const mockFn = vi.fn().mockResolvedValue(
         createExportResponse(mockExcelBlob),
       )
@@ -161,13 +180,14 @@ describe('useExport - 导出Excel通用功能', () => {
       const { handleExport } = useExport()
       await handleExport(mockFn)
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe('export_1705449600000.xlsx')
+      const link = getCreatedLink()
+      expect(link!.download).toBe('export_1705449600000.xlsx')
 
       dateSpy.mockRestore()
     })
 
     it('优先级：Content-Disposition > fallback > options.default > auto', async () => {
+      const getCreatedLink = captureCreatedLink()
       const mockFn = vi.fn().mockResolvedValue(
         createExportResponse(mockExcelBlob, 'attachment; filename="from_header.xlsx"'),
       )
@@ -175,11 +195,12 @@ describe('useExport - 导出Excel通用功能', () => {
       const { handleExport } = useExport({ fileName: 'from_options.xlsx' })
       await handleExport(mockFn, 'from_fallback.xlsx')
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe('from_header.xlsx')
+      const link = getCreatedLink()
+      expect(link!.download).toBe('from_header.xlsx')
     })
 
     it('优先级验证：fallback 文件名优先于 options 中默认', async () => {
+      const getCreatedLink = captureCreatedLink()
       const mockFn = vi.fn().mockResolvedValue(
         createExportResponse(mockExcelBlob),
       )
@@ -187,8 +208,8 @@ describe('useExport - 导出Excel通用功能', () => {
       const { handleExport } = useExport({ fileName: 'from_options.xlsx' })
       await handleExport(mockFn, 'from_fallback.xlsx')
 
-      const link = document.querySelector('a') as HTMLAnchorElement
-      expect(link.download).toBe('from_fallback.xlsx')
+      const link = getCreatedLink()
+      expect(link!.download).toBe('from_fallback.xlsx')
     })
 
     it('正确调用 URL.createObjectURL 和 URL.revokeObjectURL', async () => {

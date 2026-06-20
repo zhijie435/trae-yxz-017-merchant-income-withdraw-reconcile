@@ -3,7 +3,7 @@ export interface RequestOptions {
   headers?: Record<string, string>
   body?: unknown
   timeout?: number
-  params?: Record<string, string | number | boolean>
+  params?: Record<string, unknown>
 }
 
 export class ApiError extends Error {
@@ -18,7 +18,7 @@ export class ApiError extends Error {
   }
 }
 
-function buildQueryString(params: Record<string, string | number | boolean>): string {
+function buildQueryString(params: Record<string, unknown>): string {
   const searchParams = new URLSearchParams()
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== '') {

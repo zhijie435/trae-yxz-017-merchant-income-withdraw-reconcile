@@ -257,8 +257,12 @@ onMounted(() => {
       <section>
         <div class="mb-6 flex items-center justify-between">
           <div>
-            <h1 class="text-xl font-bold text-zinc-800">收款账户管理</h1>
-            <p class="mt-1 text-sm text-zinc-400">管理银行卡/收款账户信息，用于提现到账</p>
+            <h1 class="text-xl font-bold text-zinc-800">
+              收款账户管理
+            </h1>
+            <p class="mt-1 text-sm text-zinc-400">
+              管理银行卡/收款账户信息，用于提现到账
+            </p>
           </div>
           <div class="flex items-center gap-3">
             <button
@@ -279,7 +283,10 @@ onMounted(() => {
               class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
               @click="openCreateModal"
             >
-              <Plus class="h-4 w-4" :stroke-width="2" />
+              <Plus
+                class="h-4 w-4"
+                :stroke-width="2"
+              />
               新增账户
             </button>
           </div>
@@ -289,7 +296,10 @@ onMounted(() => {
           v-if="listError"
           class="mb-6 flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 p-4"
         >
-          <AlertCircle class="h-5 w-5 shrink-0 text-red-500" :stroke-width="2" />
+          <AlertCircle
+            class="h-5 w-5 shrink-0 text-red-500"
+            :stroke-width="2"
+          />
           <span class="text-sm text-red-600">{{ listError }}</span>
           <button
             type="button"
@@ -305,14 +315,17 @@ onMounted(() => {
             <div class="flex-1 min-w-[220px]">
               <label class="mb-1.5 block text-sm font-medium text-zinc-600">关键词搜索</label>
               <div class="relative">
-                <Search class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                <Search
+                  class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                  :stroke-width="2"
+                />
                 <input
                   v-model="query.keyword"
                   type="text"
                   placeholder="搜索收款名称、账号、银行、支行"
                   class="w-full rounded-lg border border-zinc-200 bg-white py-2 pl-9 pr-3 text-sm text-zinc-800 placeholder-zinc-400 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   @keyup.enter="handleSearch"
-                />
+                >
               </div>
             </div>
             <div class="min-w-[140px]">
@@ -321,8 +334,14 @@ onMounted(() => {
                 v-model="query.type"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               >
-                <option value="">全部类型</option>
-                <option v-for="opt in bankTypeOptions" :key="opt.value" :value="opt.value">
+                <option value="">
+                  全部类型
+                </option>
+                <option
+                  v-for="opt in bankTypeOptions"
+                  :key="opt.value"
+                  :value="opt.value"
+                >
                   {{ opt.label }}
                 </option>
               </select>
@@ -333,8 +352,14 @@ onMounted(() => {
                 v-model="query.status"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               >
-                <option value="">全部状态</option>
-                <option v-for="opt in bankAccountStatusOptions" :key="opt.value" :value="opt.value">
+                <option value="">
+                  全部状态
+                </option>
+                <option
+                  v-for="opt in bankAccountStatusOptions"
+                  :key="opt.value"
+                  :value="opt.value"
+                >
                   {{ opt.label }}
                 </option>
               </select>
@@ -363,32 +388,70 @@ onMounted(() => {
             <table class="min-w-full divide-y divide-zinc-100 text-sm">
               <thead class="bg-zinc-50">
                 <tr>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">账户编号</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">收款名称</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">开户银行</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">收款支行</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">收款账号</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">类型</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">默认</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">状态</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">创建时间</th>
-                  <th class="px-5 py-3 text-center font-medium text-zinc-500">操作</th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    账户编号
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    收款名称
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    开户银行
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    收款支行
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    收款账号
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    类型
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    默认
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    状态
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    创建时间
+                  </th>
+                  <th class="px-5 py-3 text-center font-medium text-zinc-500">
+                    操作
+                  </th>
                 </tr>
               </thead>
-              <tbody v-if="!listLoading && list" class="divide-y divide-zinc-50">
-                <tr v-for="row in list.list" :key="row.id" class="transition hover:bg-zinc-50/70">
-                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">{{ row.id }}</td>
+              <tbody
+                v-if="!listLoading && list"
+                class="divide-y divide-zinc-50"
+              >
+                <tr
+                  v-for="row in list.list"
+                  :key="row.id"
+                  class="transition hover:bg-zinc-50/70"
+                >
+                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">
+                    {{ row.id }}
+                  </td>
                   <td class="px-5 py-4">
                     <div class="flex items-center gap-2">
                       <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-                        <CreditCard class="h-4 w-4" :stroke-width="2" />
+                        <CreditCard
+                          class="h-4 w-4"
+                          :stroke-width="2"
+                        />
                       </div>
                       <span class="font-medium text-zinc-800">{{ row.accountName }}</span>
                     </div>
                   </td>
-                  <td class="px-5 py-4 text-zinc-700">{{ row.bankName || '-' }}</td>
-                  <td class="px-5 py-4 text-zinc-700">{{ row.bankBranch }}</td>
-                  <td class="px-5 py-4 font-mono text-zinc-600">{{ maskAccountNo(row.accountNo) }}</td>
+                  <td class="px-5 py-4 text-zinc-700">
+                    {{ row.bankName || '-' }}
+                  </td>
+                  <td class="px-5 py-4 text-zinc-700">
+                    {{ row.bankBranch }}
+                  </td>
+                  <td class="px-5 py-4 font-mono text-zinc-600">
+                    {{ maskAccountNo(row.accountNo) }}
+                  </td>
                   <td class="px-5 py-4">
                     <span
                       :class="cn(
@@ -413,14 +476,20 @@ onMounted(() => {
                       )"
                       @click="row.status === 'active' && handleSetDefault(row)"
                     >
-                      <Star class="h-3 w-3" :stroke-width="2" />
+                      <Star
+                        class="h-3 w-3"
+                        :stroke-width="2"
+                      />
                       设为默认
                     </button>
                     <span
                       v-else
                       class="inline-flex items-center gap-1 rounded-md bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20"
                     >
-                      <Star class="h-3 w-3 fill-amber-500 text-amber-500" :stroke-width="2" />
+                      <Star
+                        class="h-3 w-3 fill-amber-500 text-amber-500"
+                        :stroke-width="2"
+                      />
                       默认账户
                     </span>
                     <span
@@ -445,7 +514,9 @@ onMounted(() => {
                       {{ bankAccountStatusLabelMap[row.status] }}
                     </span>
                   </td>
-                  <td class="px-5 py-4 text-zinc-600">{{ formatDate(row.createdAt) }}</td>
+                  <td class="px-5 py-4 text-zinc-600">
+                    {{ formatDate(row.createdAt) }}
+                  </td>
                   <td class="px-5 py-4">
                     <div class="flex items-center justify-center gap-2">
                       <button
@@ -453,27 +524,39 @@ onMounted(() => {
                         class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-zinc-100 hover:text-brand-600"
                         @click="openEditModal(row)"
                       >
-                        <Edit2 class="h-4 w-4" :stroke-width="2" />
+                        <Edit2
+                          class="h-4 w-4"
+                          :stroke-width="2"
+                        />
                       </button>
                       <button
                         type="button"
                         class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-red-50 hover:text-red-600"
                         @click="openDeleteConfirm(row.id)"
                       >
-                        <Trash2 class="h-4 w-4" :stroke-width="2" />
+                        <Trash2
+                          class="h-4 w-4"
+                          :stroke-width="2"
+                        />
                       </button>
                     </div>
                   </td>
                 </tr>
                 <tr v-if="list.list.length === 0">
-                  <td colspan="10" class="px-5 py-16 text-center text-sm text-zinc-400">
+                  <td
+                    colspan="10"
+                    class="px-5 py-16 text-center text-sm text-zinc-400"
+                  >
                     暂无收款账户
                   </td>
                 </tr>
               </tbody>
               <tbody v-else-if="listLoading">
                 <tr>
-                  <td colspan="10" class="px-5 py-16">
+                  <td
+                    colspan="10"
+                    class="px-5 py-16"
+                  >
                     <div class="flex flex-col items-center justify-center gap-3 text-zinc-400">
                       <div class="h-8 w-8 animate-spin rounded-full border-2 border-zinc-200 border-t-brand-600" />
                       <span class="text-sm">加载中...</span>
@@ -498,10 +581,19 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
                 @click="goPrev"
               >
-                <ChevronLeft class="h-4 w-4" :stroke-width="2" />
+                <ChevronLeft
+                  class="h-4 w-4"
+                  :stroke-width="2"
+                />
               </button>
-              <template v-for="(p, i) in pageNumbers" :key="`${p}-${i}`">
-                <span v-if="p === '...'" class="px-2 text-sm text-zinc-400">...</span>
+              <template
+                v-for="(p, i) in pageNumbers"
+                :key="`${p}-${i}`"
+              >
+                <span
+                  v-if="p === '...'"
+                  class="px-2 text-sm text-zinc-400"
+                >...</span>
                 <button
                   v-else
                   type="button"
@@ -522,7 +614,10 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
                 @click="goNext"
               >
-                <ChevronRight class="h-4 w-4" :stroke-width="2" />
+                <ChevronRight
+                  class="h-4 w-4"
+                  :stroke-width="2"
+                />
               </button>
             </div>
           </div>
@@ -554,7 +649,10 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-600"
                 @click="showModal = false"
               >
-                <X class="h-5 w-5" :stroke-width="2" />
+                <X
+                  class="h-5 w-5"
+                  :stroke-width="2"
+                />
               </button>
             </div>
 
@@ -564,7 +662,10 @@ onMounted(() => {
                   收款名称 <span class="text-red-500">*</span>
                 </label>
                 <div class="relative">
-                  <User class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                  <User
+                    class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <input
                     v-model="form.accountName"
                     type="text"
@@ -575,9 +676,12 @@ onMounted(() => {
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20'
                         : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                     )"
-                  />
+                  >
                 </div>
-                <p v-if="formErrors.accountName" class="mt-1 text-xs text-red-500">
+                <p
+                  v-if="formErrors.accountName"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.accountName }}
                 </p>
               </div>
@@ -587,7 +691,10 @@ onMounted(() => {
                   开户银行 <span class="text-red-500">*</span>
                 </label>
                 <div class="relative">
-                  <Building2 class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                  <Building2
+                    class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <select
                     v-model="form.bankName"
                     :class="cn(
@@ -597,13 +704,22 @@ onMounted(() => {
                         : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                     )"
                   >
-                    <option value="">请选择开户银行</option>
-                    <option v-for="opt in bankNameOptions" :key="opt.value" :value="opt.value">
+                    <option value="">
+                      请选择开户银行
+                    </option>
+                    <option
+                      v-for="opt in bankNameOptions"
+                      :key="opt.value"
+                      :value="opt.value"
+                    >
                       {{ opt.label }}
                     </option>
                   </select>
                 </div>
-                <p v-if="formErrors.bankName" class="mt-1 text-xs text-red-500">
+                <p
+                  v-if="formErrors.bankName"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.bankName }}
                 </p>
               </div>
@@ -613,7 +729,10 @@ onMounted(() => {
                   收款支行 <span class="text-red-500">*</span>
                 </label>
                 <div class="relative">
-                  <Building2 class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                  <Building2
+                    class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <input
                     v-model="form.bankBranch"
                     type="text"
@@ -624,9 +743,12 @@ onMounted(() => {
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20'
                         : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                     )"
-                  />
+                  >
                 </div>
-                <p v-if="formErrors.bankBranch" class="mt-1 text-xs text-red-500">
+                <p
+                  v-if="formErrors.bankBranch"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.bankBranch }}
                 </p>
               </div>
@@ -636,7 +758,10 @@ onMounted(() => {
                   收款账号 <span class="text-red-500">*</span>
                 </label>
                 <div class="relative">
-                  <Hash class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                  <Hash
+                    class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <input
                     v-model="form.accountNo"
                     type="text"
@@ -648,9 +773,12 @@ onMounted(() => {
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20'
                         : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                     )"
-                  />
+                  >
                 </div>
-                <p v-if="formErrors.accountNo" class="mt-1 text-xs text-red-500">
+                <p
+                  v-if="formErrors.accountNo"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.accountNo }}
                 </p>
               </div>
@@ -662,7 +790,11 @@ onMounted(() => {
                     v-model="form.type"
                     class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   >
-                    <option v-for="opt in bankTypeOptions" :key="opt.value" :value="opt.value">
+                    <option
+                      v-for="opt in bankTypeOptions"
+                      :key="opt.value"
+                      :value="opt.value"
+                    >
                       {{ opt.label }}
                     </option>
                   </select>
@@ -673,7 +805,11 @@ onMounted(() => {
                     v-model="form.status"
                     class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   >
-                    <option v-for="opt in bankAccountStatusOptions" :key="opt.value" :value="opt.value">
+                    <option
+                      v-for="opt in bankAccountStatusOptions"
+                      :key="opt.value"
+                      :value="opt.value"
+                    >
                       {{ opt.label }}
                     </option>
                   </select>
@@ -686,7 +822,7 @@ onMounted(() => {
                     v-model="form.isDefault"
                     type="checkbox"
                     class="h-4 w-4 rounded border-zinc-300 text-brand-600 focus:ring-brand-500"
-                  />
+                  >
                   <span class="text-sm text-zinc-700">设为默认收款账户</span>
                 </label>
                 <span class="text-xs text-zinc-400">（提现时优先使用该账户）</span>
@@ -695,7 +831,10 @@ onMounted(() => {
               <div>
                 <label class="mb-1.5 block text-sm font-medium text-zinc-700">备注</label>
                 <div class="relative">
-                  <FileText class="absolute left-3 top-3 h-4 w-4 text-zinc-400" :stroke-width="2" />
+                  <FileText
+                    class="absolute left-3 top-3 h-4 w-4 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <textarea
                     v-model="form.remark"
                     rows="3"
@@ -705,8 +844,14 @@ onMounted(() => {
                 </div>
               </div>
 
-              <div v-if="submitError" class="flex items-center gap-2 rounded-lg border border-red-100 bg-red-50 p-3">
-                <AlertCircle class="h-4 w-4 shrink-0 text-red-500" :stroke-width="2" />
+              <div
+                v-if="submitError"
+                class="flex items-center gap-2 rounded-lg border border-red-100 bg-red-50 p-3"
+              >
+                <AlertCircle
+                  class="h-4 w-4 shrink-0 text-red-500"
+                  :stroke-width="2"
+                />
                 <span class="text-sm text-red-600">{{ submitError }}</span>
               </div>
             </div>
@@ -725,7 +870,10 @@ onMounted(() => {
                 class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70"
                 @click="handleSubmit"
               >
-                <span v-if="submitting" class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                <span
+                  v-if="submitting"
+                  class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                />
                 {{ submitting ? '提交中...' : '确认提交' }}
               </button>
             </div>
@@ -756,17 +904,31 @@ onMounted(() => {
                   deleteSuccess ? 'bg-emerald-100' : 'bg-red-100',
                 )"
               >
-                <CheckCircle v-if="deleteSuccess" class="h-8 w-8 text-emerald-600" :stroke-width="2" />
-                <AlertCircle v-else class="h-8 w-8 text-red-600" :stroke-width="2" />
+                <CheckCircle
+                  v-if="deleteSuccess"
+                  class="h-8 w-8 text-emerald-600"
+                  :stroke-width="2"
+                />
+                <AlertCircle
+                  v-else
+                  class="h-8 w-8 text-red-600"
+                  :stroke-width="2"
+                />
               </div>
               <h3 class="text-lg font-bold text-zinc-800">
                 {{ deleteSuccess ? '删除成功' : '确认删除' }}
               </h3>
-              <p v-if="!deleteSuccess" class="mt-2 text-sm text-zinc-500">
+              <p
+                v-if="!deleteSuccess"
+                class="mt-2 text-sm text-zinc-500"
+              >
                 删除后无法恢复，确定要删除该收款账户吗？
               </p>
             </div>
-            <div v-if="!deleteSuccess" class="flex items-center justify-center gap-3 border-t border-zinc-100 px-6 py-4">
+            <div
+              v-if="!deleteSuccess"
+              class="flex items-center justify-center gap-3 border-t border-zinc-100 px-6 py-4"
+            >
               <button
                 type="button"
                 class="flex-1 rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-600 shadow-sm transition hover:bg-zinc-50"
@@ -780,7 +942,10 @@ onMounted(() => {
                 class="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
                 @click="handleDelete"
               >
-                <span v-if="deleting" class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                <span
+                  v-if="deleting"
+                  class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                />
                 {{ deleting ? '删除中...' : '确认删除' }}
               </button>
             </div>

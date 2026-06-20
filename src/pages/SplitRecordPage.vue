@@ -123,8 +123,12 @@ onMounted(() => {
       <section>
         <div class="mb-6 flex items-center justify-between">
           <div>
-            <h1 class="text-xl font-bold text-zinc-800">分账记录</h1>
-            <p class="mt-1 text-sm text-zinc-400">查看城市合伙人分账明细及统计数据</p>
+            <h1 class="text-xl font-bold text-zinc-800">
+              分账记录
+            </h1>
+            <p class="mt-1 text-sm text-zinc-400">
+              查看城市合伙人分账明细及统计数据
+            </p>
           </div>
           <button
             type="button"
@@ -145,7 +149,10 @@ onMounted(() => {
           v-if="statsError"
           class="mb-6 flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 p-4"
         >
-          <AlertCircle class="h-5 w-5 shrink-0 text-red-500" :stroke-width="2" />
+          <AlertCircle
+            class="h-5 w-5 shrink-0 text-red-500"
+            :stroke-width="2"
+          />
           <span class="text-sm text-red-600">{{ statsError }}</span>
           <button
             type="button"
@@ -156,12 +163,15 @@ onMounted(() => {
           </button>
         </div>
 
-        <div v-if="statsLoading" class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          v-if="statsLoading"
+          class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        >
           <div
             v-for="i in 4"
             :key="i"
             class="h-32 animate-pulse rounded-2xl bg-white shadow-card"
-          ></div>
+          />
         </div>
 
         <div
@@ -171,11 +181,18 @@ onMounted(() => {
           <div class="rounded-2xl border border-zinc-100 bg-white p-5 shadow-card">
             <div class="flex items-center gap-3">
               <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                <SplitSquareVertical class="h-5 w-5" :stroke-width="2" />
+                <SplitSquareVertical
+                  class="h-5 w-5"
+                  :stroke-width="2"
+                />
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm text-zinc-500">分账笔数</p>
-                <p class="mt-1 text-2xl font-bold text-zinc-800">{{ stats.recordCount.toLocaleString() }}</p>
+                <p class="text-sm text-zinc-500">
+                  分账笔数
+                </p>
+                <p class="mt-1 text-2xl font-bold text-zinc-800">
+                  {{ stats.recordCount.toLocaleString() }}
+                </p>
               </div>
             </div>
           </div>
@@ -183,10 +200,15 @@ onMounted(() => {
           <div class="rounded-2xl border border-zinc-100 bg-white p-5 shadow-card">
             <div class="flex items-center gap-3">
               <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-                <Calendar class="h-5 w-5" :stroke-width="2" />
+                <Calendar
+                  class="h-5 w-5"
+                  :stroke-width="2"
+                />
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm text-zinc-500">今日分账</p>
+                <p class="text-sm text-zinc-500">
+                  今日分账
+                </p>
                 <p class="mt-1 flex items-baseline gap-0.5">
                   <span class="text-xs text-emerald-600">¥</span>
                   <span class="text-2xl font-bold text-emerald-600 tabular-nums">
@@ -201,10 +223,15 @@ onMounted(() => {
           <div class="rounded-2xl border border-zinc-100 bg-white p-5 shadow-card">
             <div class="flex items-center gap-3">
               <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-                <Wallet class="h-5 w-5" :stroke-width="2" />
+                <Wallet
+                  class="h-5 w-5"
+                  :stroke-width="2"
+                />
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm text-zinc-500">本月分账</p>
+                <p class="text-sm text-zinc-500">
+                  本月分账
+                </p>
                 <p class="mt-1 flex items-baseline gap-0.5">
                   <span class="text-xs text-amber-600">¥</span>
                   <span class="text-2xl font-bold text-amber-600 tabular-nums">
@@ -219,10 +246,15 @@ onMounted(() => {
           <div class="rounded-2xl border border-zinc-100 bg-white p-5 shadow-card">
             <div class="flex items-center gap-3">
               <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
-                <Percent class="h-5 w-5" :stroke-width="2" />
+                <Percent
+                  class="h-5 w-5"
+                  :stroke-width="2"
+                />
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-sm text-zinc-500">累计分账</p>
+                <p class="text-sm text-zinc-500">
+                  累计分账
+                </p>
                 <p class="mt-1 flex items-baseline gap-0.5">
                   <span class="text-xs text-purple-600">¥</span>
                   <span class="text-2xl font-bold text-purple-600 tabular-nums">
@@ -243,7 +275,7 @@ onMounted(() => {
                 v-model="query.startDate"
                 type="date"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
-              />
+              >
             </div>
             <div class="min-w-[160px]">
               <label class="mb-1.5 block text-sm font-medium text-zinc-600">结束日期</label>
@@ -251,7 +283,7 @@ onMounted(() => {
                 v-model="query.endDate"
                 type="date"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
-              />
+              >
             </div>
             <div class="min-w-[180px]">
               <label class="mb-1.5 block text-sm font-medium text-zinc-600">合伙人</label>
@@ -259,7 +291,9 @@ onMounted(() => {
                 v-model="query.partnerId"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               >
-                <option value="">全部合伙人</option>
+                <option value="">
+                  全部合伙人
+                </option>
                 <option
                   v-for="partner in activePartners"
                   :key="partner.id"
@@ -275,8 +309,14 @@ onMounted(() => {
                 v-model="query.status"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               >
-                <option value="">全部状态</option>
-                <option v-for="opt in splitStatusOptions" :key="opt.value" :value="opt.value">
+                <option value="">
+                  全部状态
+                </option>
+                <option
+                  v-for="opt in splitStatusOptions"
+                  :key="opt.value"
+                  :value="opt.value"
+                >
                   {{ opt.label }}
                 </option>
               </select>
@@ -304,7 +344,10 @@ onMounted(() => {
           v-if="listError"
           class="mb-6 flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 p-4"
         >
-          <AlertCircle class="h-5 w-5 shrink-0 text-red-500" :stroke-width="2" />
+          <AlertCircle
+            class="h-5 w-5 shrink-0 text-red-500"
+            :stroke-width="2"
+          />
           <span class="text-sm text-red-600">{{ listError }}</span>
           <button
             type="button"
@@ -320,28 +363,63 @@ onMounted(() => {
             <table class="min-w-full divide-y divide-zinc-100 text-sm">
               <thead class="bg-zinc-50">
                 <tr>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">分账单号</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">关联订单</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">合伙人</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">交易时间</th>
-                  <th class="px-5 py-3 text-right font-medium text-zinc-500">订单金额</th>
-                  <th class="px-5 py-3 text-center font-medium text-zinc-500">分账比例</th>
-                  <th class="px-5 py-3 text-right font-medium text-zinc-500">分账金额</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">状态</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">备注</th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    分账单号
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    关联订单
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    合伙人
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    交易时间
+                  </th>
+                  <th class="px-5 py-3 text-right font-medium text-zinc-500">
+                    订单金额
+                  </th>
+                  <th class="px-5 py-3 text-center font-medium text-zinc-500">
+                    分账比例
+                  </th>
+                  <th class="px-5 py-3 text-right font-medium text-zinc-500">
+                    分账金额
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    状态
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    备注
+                  </th>
                 </tr>
               </thead>
-              <tbody v-if="!listLoading && list" class="divide-y divide-zinc-50">
-                <tr v-for="row in list.list" :key="row.id" class="transition hover:bg-zinc-50/70">
-                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">{{ row.id }}</td>
-                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">{{ row.orderNo }}</td>
+              <tbody
+                v-if="!listLoading && list"
+                class="divide-y divide-zinc-50"
+              >
+                <tr
+                  v-for="row in list.list"
+                  :key="row.id"
+                  class="transition hover:bg-zinc-50/70"
+                >
+                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">
+                    {{ row.id }}
+                  </td>
+                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">
+                    {{ row.orderNo }}
+                  </td>
                   <td class="px-5 py-4">
                     <div class="text-zinc-800">
-                      <p class="font-medium">{{ row.partnerName }}</p>
-                      <p class="text-xs text-zinc-400">{{ row.partnerId }}</p>
+                      <p class="font-medium">
+                        {{ row.partnerName }}
+                      </p>
+                      <p class="text-xs text-zinc-400">
+                        {{ row.partnerId }}
+                      </p>
                     </div>
                   </td>
-                  <td class="px-5 py-4 text-zinc-700">{{ formatDateTime(row.tradeTime) }}</td>
+                  <td class="px-5 py-4 text-zinc-700">
+                    {{ formatDateTime(row.tradeTime) }}
+                  </td>
                   <td class="px-5 py-4 text-right font-mono tabular-nums text-zinc-700">
                     <span class="text-xs text-zinc-400">¥</span>
                     {{ formatCurrencyInteger(row.totalAmount) }}
@@ -349,7 +427,10 @@ onMounted(() => {
                   </td>
                   <td class="px-5 py-4 text-center">
                     <span class="inline-flex items-center gap-1 rounded-md bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-700">
-                      <Percent class="h-3 w-3" :stroke-width="2" />
+                      <Percent
+                        class="h-3 w-3"
+                        :stroke-width="2"
+                      />
                       {{ row.splitRatio }}%
                     </span>
                   </td>
@@ -373,17 +454,25 @@ onMounted(() => {
                       {{ statusLabelMap[row.status] }}
                     </span>
                   </td>
-                  <td class="px-5 py-4 text-zinc-600">{{ row.remark }}</td>
+                  <td class="px-5 py-4 text-zinc-600">
+                    {{ row.remark }}
+                  </td>
                 </tr>
                 <tr v-if="list.list.length === 0">
-                  <td colspan="9" class="px-5 py-16 text-center text-sm text-zinc-400">
+                  <td
+                    colspan="9"
+                    class="px-5 py-16 text-center text-sm text-zinc-400"
+                  >
                     暂无分账记录
                   </td>
                 </tr>
               </tbody>
               <tbody v-else-if="listLoading">
                 <tr>
-                  <td colspan="9" class="px-5 py-16">
+                  <td
+                    colspan="9"
+                    class="px-5 py-16"
+                  >
                     <div class="flex flex-col items-center justify-center gap-3 text-zinc-400">
                       <div class="h-8 w-8 animate-spin rounded-full border-2 border-zinc-200 border-t-brand-600" />
                       <span class="text-sm">加载中...</span>
@@ -408,10 +497,19 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
                 @click="goPrev"
               >
-                <ChevronLeft class="h-4 w-4" :stroke-width="2" />
+                <ChevronLeft
+                  class="h-4 w-4"
+                  :stroke-width="2"
+                />
               </button>
-              <template v-for="(p, i) in pageNumbers" :key="`${p}-${i}`">
-                <span v-if="p === '...'" class="px-2 text-sm text-zinc-400">...</span>
+              <template
+                v-for="(p, i) in pageNumbers"
+                :key="`${p}-${i}`"
+              >
+                <span
+                  v-if="p === '...'"
+                  class="px-2 text-sm text-zinc-400"
+                >...</span>
                 <button
                   v-else
                   type="button"
@@ -432,7 +530,10 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
                 @click="goNext"
               >
-                <ChevronRight class="h-4 w-4" :stroke-width="2" />
+                <ChevronRight
+                  class="h-4 w-4"
+                  :stroke-width="2"
+                />
               </button>
             </div>
           </div>

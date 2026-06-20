@@ -30,8 +30,8 @@ const isWarning = props.variant === 'warning'
       isHighlight
         ? 'bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white shadow-cardHover hover:-translate-y-1'
         : isWarning
-        ? 'bg-gradient-to-br from-amber-50 via-amber-50 to-orange-50 text-amber-900 shadow-card hover:-translate-y-0.5 hover:shadow-cardHover border border-amber-100'
-        : 'bg-white text-zinc-800 shadow-card hover:-translate-y-0.5 hover:shadow-cardHover',
+          ? 'bg-gradient-to-br from-amber-50 via-amber-50 to-orange-50 text-amber-900 shadow-card hover:-translate-y-0.5 hover:shadow-cardHover border border-amber-100'
+          : 'bg-white text-zinc-800 shadow-card hover:-translate-y-0.5 hover:shadow-cardHover',
     )"
   >
     <div
@@ -50,7 +50,10 @@ const isWarning = props.variant === 'warning'
         >
           {{ label }}
         </span>
-        <div v-if="tooltip" class="group/tip relative flex">
+        <div
+          v-if="tooltip"
+          class="group/tip relative flex"
+        >
           <HelpCircle
             :class="cn('h-3.5 w-3.5', isHighlight ? 'text-white/60' : isWarning ? 'text-amber-400' : 'text-zinc-300')"
             :stroke-width="2"
@@ -68,7 +71,11 @@ const isWarning = props.variant === 'warning'
           isHighlight ? 'bg-white/15 text-white' : isWarning ? 'bg-amber-100 text-amber-600' : 'bg-brand-50 text-brand-700',
         )"
       >
-        <component :is="icon" class="h-5 w-5" :stroke-width="2" />
+        <component
+          :is="icon"
+          class="h-5 w-5"
+          :stroke-width="2"
+        />
       </span>
     </div>
 
@@ -95,7 +102,10 @@ const isWarning = props.variant === 'warning'
       {{ description }}
     </p>
 
-    <div v-if="$slots.default" class="relative mt-auto pt-4">
+    <div
+      v-if="$slots.default"
+      class="relative mt-auto pt-4"
+    >
       <slot />
     </div>
   </div>

@@ -219,8 +219,12 @@ onMounted(() => {
       <section>
         <div class="mb-6 flex items-center justify-between">
           <div>
-            <h1 class="text-xl font-bold text-zinc-800">城市合伙人管理</h1>
-            <p class="mt-1 text-sm text-zinc-400">管理城市合伙人信息及分账比例设置</p>
+            <h1 class="text-xl font-bold text-zinc-800">
+              城市合伙人管理
+            </h1>
+            <p class="mt-1 text-sm text-zinc-400">
+              管理城市合伙人信息及分账比例设置
+            </p>
           </div>
           <div class="flex items-center gap-3">
             <button
@@ -241,7 +245,10 @@ onMounted(() => {
               class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
               @click="openCreateModal"
             >
-              <Plus class="h-4 w-4" :stroke-width="2" />
+              <Plus
+                class="h-4 w-4"
+                :stroke-width="2"
+              />
               新增合伙人
             </button>
           </div>
@@ -251,7 +258,10 @@ onMounted(() => {
           v-if="listError"
           class="mb-6 flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 p-4"
         >
-          <AlertCircle class="h-5 w-5 shrink-0 text-red-500" :stroke-width="2" />
+          <AlertCircle
+            class="h-5 w-5 shrink-0 text-red-500"
+            :stroke-width="2"
+          />
           <span class="text-sm text-red-600">{{ listError }}</span>
           <button
             type="button"
@@ -267,14 +277,17 @@ onMounted(() => {
             <div class="flex-1 min-w-[200px]">
               <label class="mb-1.5 block text-sm font-medium text-zinc-600">关键词搜索</label>
               <div class="relative">
-                <Search class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                <Search
+                  class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                  :stroke-width="2"
+                />
                 <input
                   v-model="query.keyword"
                   type="text"
                   placeholder="搜索姓名、手机号、城市"
                   class="w-full rounded-lg border border-zinc-200 bg-white py-2 pl-9 pr-3 text-sm text-zinc-800 placeholder-zinc-400 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                   @keyup.enter="handleSearch"
-                />
+                >
               </div>
             </div>
             <div class="min-w-[140px]">
@@ -283,8 +296,14 @@ onMounted(() => {
                 v-model="query.city"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               >
-                <option value="">全部城市</option>
-                <option v-for="opt in cityOptions" :key="opt.value" :value="opt.value">
+                <option value="">
+                  全部城市
+                </option>
+                <option
+                  v-for="opt in cityOptions"
+                  :key="opt.value"
+                  :value="opt.value"
+                >
                   {{ opt.label }}
                 </option>
               </select>
@@ -295,8 +314,14 @@ onMounted(() => {
                 v-model="query.status"
                 class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               >
-                <option value="">全部状态</option>
-                <option v-for="opt in partnerStatusOptions" :key="opt.value" :value="opt.value">
+                <option value="">
+                  全部状态
+                </option>
+                <option
+                  v-for="opt in partnerStatusOptions"
+                  :key="opt.value"
+                  :value="opt.value"
+                >
                   {{ opt.label }}
                 </option>
               </select>
@@ -325,38 +350,76 @@ onMounted(() => {
             <table class="min-w-full divide-y divide-zinc-100 text-sm">
               <thead class="bg-zinc-50">
                 <tr>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">合伙人编号</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">姓名</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">手机号</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">城市</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">分账比例</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">状态</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">创建时间</th>
-                  <th class="px-5 py-3 text-left font-medium text-zinc-500">备注</th>
-                  <th class="px-5 py-3 text-center font-medium text-zinc-500">操作</th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    合伙人编号
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    姓名
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    手机号
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    城市
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    分账比例
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    状态
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    创建时间
+                  </th>
+                  <th class="px-5 py-3 text-left font-medium text-zinc-500">
+                    备注
+                  </th>
+                  <th class="px-5 py-3 text-center font-medium text-zinc-500">
+                    操作
+                  </th>
                 </tr>
               </thead>
-              <tbody v-if="!listLoading && list" class="divide-y divide-zinc-50">
-                <tr v-for="row in list.list" :key="row.id" class="transition hover:bg-zinc-50/70">
-                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">{{ row.id }}</td>
+              <tbody
+                v-if="!listLoading && list"
+                class="divide-y divide-zinc-50"
+              >
+                <tr
+                  v-for="row in list.list"
+                  :key="row.id"
+                  class="transition hover:bg-zinc-50/70"
+                >
+                  <td class="px-5 py-4 font-mono text-xs text-zinc-600">
+                    {{ row.id }}
+                  </td>
                   <td class="px-5 py-4">
                     <div class="flex items-center gap-2">
                       <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-                        <Users class="h-4 w-4" :stroke-width="2" />
+                        <Users
+                          class="h-4 w-4"
+                          :stroke-width="2"
+                        />
                       </div>
                       <span class="font-medium text-zinc-800">{{ row.name }}</span>
                     </div>
                   </td>
-                  <td class="px-5 py-4 font-mono text-zinc-600">{{ row.phone }}</td>
+                  <td class="px-5 py-4 font-mono text-zinc-600">
+                    {{ row.phone }}
+                  </td>
                   <td class="px-5 py-4">
                     <div class="flex items-center gap-1.5 text-zinc-700">
-                      <MapPin class="h-4 w-4 text-zinc-400" :stroke-width="2" />
+                      <MapPin
+                        class="h-4 w-4 text-zinc-400"
+                        :stroke-width="2"
+                      />
                       {{ row.city }}
                     </div>
                   </td>
                   <td class="px-5 py-4">
                     <div class="flex items-center gap-1.5 text-zinc-700">
-                      <Percent class="h-4 w-4 text-brand-500" :stroke-width="2" />
+                      <Percent
+                        class="h-4 w-4 text-brand-500"
+                        :stroke-width="2"
+                      />
                       <span class="font-semibold text-brand-700">{{ row.splitRatio }}%</span>
                     </div>
                   </td>
@@ -368,15 +431,19 @@ onMounted(() => {
                       )"
                     >
                       <component
-                      :is="row.status === 'active' ? CheckCircle : XCircle"
-                      class="h-3 w-3"
-                      :stroke-width="2"
-                    />
+                        :is="row.status === 'active' ? CheckCircle : XCircle"
+                        class="h-3 w-3"
+                        :stroke-width="2"
+                      />
                       {{ statusLabelMap[row.status] }}
                     </span>
                   </td>
-                  <td class="px-5 py-4 text-zinc-600">{{ formatDate(row.createdAt) }}</td>
-                  <td class="px-5 py-4 text-zinc-600">{{ row.remark || '-' }}</td>
+                  <td class="px-5 py-4 text-zinc-600">
+                    {{ formatDate(row.createdAt) }}
+                  </td>
+                  <td class="px-5 py-4 text-zinc-600">
+                    {{ row.remark || '-' }}
+                  </td>
                   <td class="px-5 py-4">
                     <div class="flex items-center justify-center gap-2">
                       <button
@@ -384,27 +451,39 @@ onMounted(() => {
                         class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-zinc-100 hover:text-brand-600"
                         @click="openEditModal(row)"
                       >
-                        <Edit2 class="h-4 w-4" :stroke-width="2" />
+                        <Edit2
+                          class="h-4 w-4"
+                          :stroke-width="2"
+                        />
                       </button>
                       <button
                         type="button"
                         class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-red-50 hover:text-red-600"
                         @click="openDeleteConfirm(row.id)"
                       >
-                        <Trash2 class="h-4 w-4" :stroke-width="2" />
+                        <Trash2
+                          class="h-4 w-4"
+                          :stroke-width="2"
+                        />
                       </button>
                     </div>
                   </td>
                 </tr>
                 <tr v-if="list.list.length === 0">
-                  <td colspan="9" class="px-5 py-16 text-center text-sm text-zinc-400">
+                  <td
+                    colspan="9"
+                    class="px-5 py-16 text-center text-sm text-zinc-400"
+                  >
                     暂无城市合伙人
                   </td>
                 </tr>
               </tbody>
               <tbody v-else-if="listLoading">
                 <tr>
-                  <td colspan="9" class="px-5 py-16">
+                  <td
+                    colspan="9"
+                    class="px-5 py-16"
+                  >
                     <div class="flex flex-col items-center justify-center gap-3 text-zinc-400">
                       <div class="h-8 w-8 animate-spin rounded-full border-2 border-zinc-200 border-t-brand-600" />
                       <span class="text-sm">加载中...</span>
@@ -429,10 +508,19 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
                 @click="goPrev"
               >
-                <ChevronLeft class="h-4 w-4" :stroke-width="2" />
+                <ChevronLeft
+                  class="h-4 w-4"
+                  :stroke-width="2"
+                />
               </button>
-              <template v-for="(p, i) in pageNumbers" :key="`${p}-${i}`">
-                <span v-if="p === '...'" class="px-2 text-sm text-zinc-400">...</span>
+              <template
+                v-for="(p, i) in pageNumbers"
+                :key="`${p}-${i}`"
+              >
+                <span
+                  v-if="p === '...'"
+                  class="px-2 text-sm text-zinc-400"
+                >...</span>
                 <button
                   v-else
                   type="button"
@@ -453,7 +541,10 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-600 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
                 @click="goNext"
               >
-                <ChevronRight class="h-4 w-4" :stroke-width="2" />
+                <ChevronRight
+                  class="h-4 w-4"
+                  :stroke-width="2"
+                />
               </button>
             </div>
           </div>
@@ -487,15 +578,18 @@ onMounted(() => {
                 class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-600"
                 @click="showModal = false"
               >
-                <X class="h-5 w-5" :stroke-width="2" />
+                <X
+                  class="h-5 w-5"
+                  :stroke-width="2"
+                />
               </button>
             </div>
 
             <div class="px-6 py-5 space-y-5">
               <div>
                 <label class="mb-1.5 block text-sm font-medium text-zinc-700">
-                姓名 <span class="text-red-500">*</span>
-              </label>
+                  姓名 <span class="text-red-500">*</span>
+                </label>
                 <input
                   v-model="form.name"
                   type="text"
@@ -506,18 +600,24 @@ onMounted(() => {
                       ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20'
                       : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                   )"
-                />
-                <p v-if="formErrors.name" class="mt-1 text-xs text-red-500">
+                >
+                <p
+                  v-if="formErrors.name"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.name }}
                 </p>
               </div>
 
               <div>
                 <label class="mb-1.5 block text-sm font-medium text-zinc-700">
-                手机号 <span class="text-red-500">*</span>
-              </label>
+                  手机号 <span class="text-red-500">*</span>
+                </label>
                 <div class="relative">
-                  <Phone class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                  <Phone
+                    class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <input
                     v-model="form.phone"
                     type="tel"
@@ -528,19 +628,25 @@ onMounted(() => {
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20'
                         : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                     )"
-                  />
+                  >
                 </div>
-                <p v-if="formErrors.phone" class="mt-1 text-xs text-red-500">
+                <p
+                  v-if="formErrors.phone"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.phone }}
                 </p>
               </div>
 
               <div>
                 <label class="mb-1.5 block text-sm font-medium text-zinc-700">
-                城市 <span class="text-red-500">*</span>
-              </label>
+                  城市 <span class="text-red-500">*</span>
+                </label>
                 <div class="relative">
-                  <MapPin class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                  <MapPin
+                    class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <select
                     v-model="form.city"
                     :class="cn(
@@ -550,23 +656,35 @@ onMounted(() => {
                         : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                     )"
                   >
-                    <option value="">请选择城市</option>
-                    <option v-for="opt in cityOptions" :key="opt.value" :value="opt.value">
+                    <option value="">
+                      请选择城市
+                    </option>
+                    <option
+                      v-for="opt in cityOptions"
+                      :key="opt.value"
+                      :value="opt.value"
+                    >
                       {{ opt.label }}
                     </option>
                   </select>
                 </div>
-                <p v-if="formErrors.city" class="mt-1 text-xs text-red-500">
+                <p
+                  v-if="formErrors.city"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.city }}
                 </p>
               </div>
 
               <div>
                 <label class="mb-1.5 block text-sm font-medium text-zinc-700">
-                分账比例 <span class="text-red-500">*</span>
-              </label>
+                  分账比例 <span class="text-red-500">*</span>
+                </label>
                 <div class="relative">
-                  <Percent class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" :stroke-width="2" />
+                  <Percent
+                    class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <input
                     v-model.number="form.splitRatio"
                     type="number"
@@ -579,10 +697,13 @@ onMounted(() => {
                         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20'
                         : 'border-zinc-200 focus:border-brand-500 focus:ring-brand-500/20',
                     )"
-                  />
+                  >
                   <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-zinc-500">%</span>
                 </div>
-                <p v-if="formErrors.splitRatio" class="mt-1 text-xs text-red-500">
+                <p
+                  v-if="formErrors.splitRatio"
+                  class="mt-1 text-xs text-red-500"
+                >
                   {{ formErrors.splitRatio }}
                 </p>
                 <p class="mt-1 text-xs text-zinc-400">
@@ -596,7 +717,11 @@ onMounted(() => {
                   v-model="form.status"
                   class="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
                 >
-                  <option v-for="opt in partnerStatusOptions" :key="opt.value" :value="opt.value">
+                  <option
+                    v-for="opt in partnerStatusOptions"
+                    :key="opt.value"
+                    :value="opt.value"
+                  >
                     {{ opt.label }}
                   </option>
                 </select>
@@ -605,7 +730,10 @@ onMounted(() => {
               <div>
                 <label class="mb-1.5 block text-sm font-medium text-zinc-700">备注</label>
                 <div class="relative">
-                  <FileText class="absolute left-3 top-3 h-4 w-4 text-zinc-400" :stroke-width="2" />
+                  <FileText
+                    class="absolute left-3 top-3 h-4 w-4 text-zinc-400"
+                    :stroke-width="2"
+                  />
                   <textarea
                     v-model="form.remark"
                     rows="3"
@@ -615,8 +743,14 @@ onMounted(() => {
                 </div>
               </div>
 
-              <div v-if="submitError" class="flex items-center gap-2 rounded-lg border border-red-100 bg-red-50 p-3">
-                <AlertCircle class="h-4 w-4 shrink-0 text-red-500" :stroke-width="2" />
+              <div
+                v-if="submitError"
+                class="flex items-center gap-2 rounded-lg border border-red-100 bg-red-50 p-3"
+              >
+                <AlertCircle
+                  class="h-4 w-4 shrink-0 text-red-500"
+                  :stroke-width="2"
+                />
                 <span class="text-sm text-red-600">{{ submitError }}</span>
               </div>
             </div>
@@ -635,7 +769,10 @@ onMounted(() => {
                 class="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70"
                 @click="handleSubmit"
               >
-                <span v-if="submitting" class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                <span
+                  v-if="submitting"
+                  class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                />
                 {{ submitting ? '提交中...' : '确认提交' }}
               </button>
             </div>
@@ -666,17 +803,31 @@ onMounted(() => {
                   deleteSuccess ? 'bg-emerald-100' : 'bg-red-100',
                 )"
               >
-                <CheckCircle v-if="deleteSuccess" class="h-8 w-8 text-emerald-600" :stroke-width="2" />
-                <AlertCircle v-else class="h-8 w-8 text-red-600" :stroke-width="2" />
+                <CheckCircle
+                  v-if="deleteSuccess"
+                  class="h-8 w-8 text-emerald-600"
+                  :stroke-width="2"
+                />
+                <AlertCircle
+                  v-else
+                  class="h-8 w-8 text-red-600"
+                  :stroke-width="2"
+                />
               </div>
               <h3 class="text-lg font-bold text-zinc-800">
                 {{ deleteSuccess ? '删除成功' : '确认删除' }}
               </h3>
-              <p v-if="!deleteSuccess" class="mt-2 text-sm text-zinc-500">
+              <p
+                v-if="!deleteSuccess"
+                class="mt-2 text-sm text-zinc-500"
+              >
                 删除后无法恢复，确定要删除该城市合伙人吗？
               </p>
             </div>
-            <div v-if="!deleteSuccess" class="flex items-center justify-center gap-3 border-t border-zinc-100 px-6 py-4">
+            <div
+              v-if="!deleteSuccess"
+              class="flex items-center justify-center gap-3 border-t border-zinc-100 px-6 py-4"
+            >
               <button
                 type="button"
                 class="flex-1 rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-600 shadow-sm transition hover:bg-zinc-50"
@@ -690,7 +841,10 @@ onMounted(() => {
                 class="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
                 @click="handleDelete"
               >
-                <span v-if="deleting" class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                <span
+                  v-if="deleting"
+                  class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                />
                 {{ deleting ? '删除中...' : '确认删除' }}
               </button>
             </div>
