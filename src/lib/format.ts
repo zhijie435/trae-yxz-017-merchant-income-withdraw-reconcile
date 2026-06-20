@@ -1,5 +1,5 @@
 /**
- * 金额格式化工具
+ * 通用格式化工具
  * 后端金额单位为「分」，前端展示换算为「元」
  */
 
@@ -31,3 +31,35 @@ export function formatCurrency(cents: number): string {
   const sign = cents < 0 ? '-' : ''
   return `${sign}${formatCurrencyInteger(cents)}.${formatCurrencyDecimal(cents)}`
 }
+
+function pad(n: number): string {
+  return n.toString().padStart(2, '0')
+}
+
+/**
+ * 格式化 ISO 时间字符串为 yyyy-MM-dd HH:mm:ss
+ */
+export function formatDateTime(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
+}
+
+/**
+ * 格式化 ISO 时间字符串为 yyyy-MM-dd
+ */
+export function formatDate(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+}
+
+/**
+ * 状态中文映射
+ */
+export const statusLabelMap: Record<string, string> = {
+  success: '成功',
+  pending: '处理中',
+  failed: '失败',
+}
+

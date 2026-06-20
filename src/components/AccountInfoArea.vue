@@ -26,8 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-zinc-50 px-4 py-8 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-5xl">
+  <section>
       <div class="mb-6 flex items-center justify-between">
         <div>
           <h1 class="text-xl font-bold text-zinc-800">账户信息</h1>
@@ -164,6 +163,5 @@ onMounted(() => {
           </button>
         </div>
       </Transition>
-    </div>
-  </div>
+  </section>
 </template>
