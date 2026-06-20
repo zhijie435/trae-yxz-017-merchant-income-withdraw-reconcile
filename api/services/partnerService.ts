@@ -111,6 +111,7 @@ export async function updateCityPartner(
         resolve(null)
         return
       }
+      const oldRatio = cityPartners[index].splitRatio
       const updated: CityPartner = {
         ...cityPartners[index],
         name: form.name,
@@ -121,6 +122,20 @@ export async function updateCityPartner(
         remark: form.remark,
       }
       cityPartners[index] = updated
+
+      if (oldRatio !== form.splitRatio) {
+        for (let i = 0; i < splitRecords.length; i++) {
+          if (splitRecords[i].partnerId === id) {
+            const newSplitAmount = Math.floor(splitRecords[i].totalAmount * form.splitRatio / 100)
+            splitRecords[i] = {
+              ...splitRecords[i],
+              splitRatio: form.splitRatio,
+              splitAmount: newSplitAmount,
+            }
+          }
+        }
+      }
+
       resolve(updated)
     }, 200)
   })
@@ -170,7 +185,7 @@ function filterSplitRecords(
 
 export async function getSplitRecordStats(): Promise<SplitRecordStatsData> {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(computeSplitStats()), 200)
+    setTimeout(() => resolve(computeSplitStats(splitRecords)), 200)
   })
 }
 

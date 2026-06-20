@@ -93,7 +93,7 @@ function generateSplitRecords(): SplitRecord[] {
 
 export const mockSplitRecords: SplitRecord[] = generateSplitRecords()
 
-export function computeSplitStats(): SplitRecordStatsData {
+export function computeSplitStats(records: SplitRecord[]): SplitRecordStatsData {
   const today = new Date(Date.UTC(2026, 5, 20))
   const todayStr = `${today.getUTCFullYear()}-${pad(today.getUTCMonth() + 1)}-${pad(today.getUTCDate())}`
   const monthStartStr = `${today.getUTCFullYear()}-${pad(today.getUTCMonth() + 1)}-01`
@@ -103,7 +103,7 @@ export function computeSplitStats(): SplitRecordStatsData {
   let totalSplitAmount = 0
   let recordCount = 0
 
-  for (const r of mockSplitRecords) {
+  for (const r of records) {
     if (r.status !== 'success') continue
     const d = r.tradeTime.slice(0, 10)
     if (d === todayStr) todaySplitAmount += r.splitAmount
@@ -120,7 +120,7 @@ export function computeSplitStats(): SplitRecordStatsData {
   }
 }
 
-export const mockSplitStats: SplitRecordStatsData = computeSplitStats()
+export const mockSplitStats: SplitRecordStatsData = computeSplitStats(mockSplitRecords)
 
 export const cityOptions = [...new Set(CITIES)].map(city => ({ value: city, label: city }))
 export const partnerStatusOptions = [
