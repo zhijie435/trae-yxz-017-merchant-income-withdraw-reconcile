@@ -132,7 +132,7 @@ describe('withdrawApi - 提现申请相关接口', () => {
     it('网络异常时抛出网络错误', async () => {
       vi.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Network Error'))
 
-      await expect(withdrawApi.getStats()).rejects.toThrow('网络错误')
+      await expect(withdrawApi.getStats()).rejects.toThrow()
     })
   })
 

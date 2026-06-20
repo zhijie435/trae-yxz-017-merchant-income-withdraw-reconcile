@@ -5,7 +5,7 @@ export interface ExportOptions {
   fileName?: string
 }
 
-function getFileNameFromContentDisposition(disposition: string | null): string | null {
+export function getFileNameFromContentDisposition(disposition: string | null): string | null {
   if (!disposition) return null
   const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition)
   if (matches && matches[1]) {

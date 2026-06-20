@@ -337,4 +337,236 @@ describe('useRevenue - 收益统计与列表', () => {
       expect(listLoading.value).toBe(false)
     })
   })
+
+  describe('exportExcel - 导出收益Excel', () => {
+    const mockExcelBlob = new Blob(
+      ['PK\x03\x04mock-revenue-excel'],
+      { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+    )
+
+    function createExportResponse(blob: Blob, contentDisposition?: string): Response {
+      const headers = new Headers()
+      if (contentDisposition) {
+        headers.set('Content-Disposition', contentDisposition)
+      }
+      return new Response(blob, { status: 200, headers })
+    }
+
+    beforeEach(() => {
+      document.body.innerHTML = ''
+      vi.spyOn(window.URL, 'createObjectURL').mockImplementation(
+        (blob: Blob | MediaSource) => `mock-url-${(blob as Blob).size}`,
+      )
+      vi.spyOn(window.URL, 'revokeObjectURL').mockImplementation(() => {})
+    })
+
+    it('成功导出收益明细Excel', async () => {
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        createExportResponse(
+          mockExcelBlob,
+          "attachment; filename*=UTF-8''%E6%94%B6%E7%9B%8A%E6%98%8E%E7%BB%86_202401.xlsx",
+        ),
+      )
+
+      const { exporting, exportExcel } = useRevenue()
+
+      const promise = exportExcel({})
+      expect(exporting.value).toBe(true)
+
+      await promise
+
+      expect(exporting.value).toBe(false)
+      const links = document.querySelectorAll('a')
+      expect(links.length).toBe(1)
+    })
+
+    it('默认文件名解析正确', async () => {
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        createExportResponse(mockExcelBlob),
+      )
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({})
+
+      const link = document.querySelector('a') as HTMLAnchorElement
+      expect(link.download).toBe('收益明细.xlsx')
+    })
+
+    it('从 Content-Disposition 解析 UTF-8 编码文件名', async () => {
+      const encodedFileName = encodeURIComponent('门店收益_2024年1月.xlsx')
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        createExportResponse(
+          mockExcelBlob,
+          `attachment; filename*=UTF-8''${encodedFileName}`,
+        ),
+      )
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({})
+
+      const link = document.querySelector('a') as HTMLAnchorElement
+      expect(link.download).toBe('门店收益_2024年1月.xlsx')
+    })
+
+    it('无筛选条件导出时URL中不包含分页参数', async () => {
+      let capturedUrl = ''
+      vi.spyOn(global, 'fetch').mockImplementationOnce((url) => {
+        capturedUrl = url as string
+        return Promise.resolve(createExportResponse(mockExcelBlob))
+      })
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({})
+
+      expect(capturedUrl).toContain('/api/revenue/export')
+      expect(capturedUrl).not.toContain('page=')
+      expect(capturedUrl).not.toContain('pageSize=')
+    })
+
+    it('带日期范围导出', async () => {
+      let capturedUrl = ''
+      vi.spyOn(global, 'fetch').mockImplementationOnce((url) => {
+        capturedUrl = url as string
+        return Promise.resolve(createExportResponse(mockExcelBlob))
+      })
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({
+        startDate: '2024-01-01',
+        endDate: '2024-01-31',
+      })
+
+      expect(capturedUrl).toContain('startDate=2024-01-01')
+      expect(capturedUrl).toContain('endDate=2024-01-31')
+    })
+
+    it('带收益类型导出', async () => {
+      let capturedUrl = ''
+      vi.spyOn(global, 'fetch').mockImplementationOnce((url) => {
+        capturedUrl = url as string
+        return Promise.resolve(createExportResponse(mockExcelBlob))
+      })
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({ type: '订单收益' })
+
+      expect(capturedUrl).toContain('type=%E8%AE%A2%E5%8D%95%E6%94%B6%E7%9B%8A')
+    })
+
+    it('带状态导出（成功success）', async () => {
+      let capturedUrl = ''
+      vi.spyOn(global, 'fetch').mockImplementationOnce((url) => {
+        capturedUrl = url as string
+        return Promise.resolve(createExportResponse(mockExcelBlob))
+      })
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({ status: 'success' })
+
+      expect(capturedUrl).toContain('status=success')
+    })
+
+    it('带状态导出（处理中pending）', async () => {
+      let capturedUrl = ''
+      vi.spyOn(global, 'fetch').mockImplementationOnce((url) => {
+        capturedUrl = url as string
+        return Promise.resolve(createExportResponse(mockExcelBlob))
+      })
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({ status: 'pending' })
+
+      expect(capturedUrl).toContain('status=pending')
+    })
+
+    it('带状态导出（失败failed）', async () => {
+      let capturedUrl = ''
+      vi.spyOn(global, 'fetch').mockImplementationOnce((url) => {
+        capturedUrl = url as string
+        return Promise.resolve(createExportResponse(mockExcelBlob))
+      })
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({ status: 'failed' })
+
+      expect(capturedUrl).toContain('status=failed')
+    })
+
+    it('全部筛选条件组合导出（日期+类型+状态）', async () => {
+      let capturedUrl = ''
+      vi.spyOn(global, 'fetch').mockImplementationOnce((url) => {
+        capturedUrl = url as string
+        return Promise.resolve(createExportResponse(mockExcelBlob))
+      })
+
+      const { exportExcel } = useRevenue()
+      const query: RevenueListQuery = {
+        startDate: '2024-01-01',
+        endDate: '2024-01-31',
+        type: '补贴',
+        status: 'success',
+      }
+      await exportExcel(query)
+
+      expect(capturedUrl).toContain('startDate=2024-01-01')
+      expect(capturedUrl).toContain('endDate=2024-01-31')
+      expect(capturedUrl).toContain('type=%E8%A1%A5%E8%B4%B4')
+      expect(capturedUrl).toContain('status=success')
+      expect(capturedUrl).not.toContain('page=')
+      expect(capturedUrl).not.toContain('pageSize=')
+    })
+
+    it('HTTP 500错误时exporting状态正确重置', async () => {
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        new Response('Internal Server Error', { status: 500 }),
+      )
+
+      const { exporting, exportExcel } = useRevenue()
+
+      try {
+        await exportExcel({})
+      } catch {
+        // 预期抛出
+      }
+
+      expect(exporting.value).toBe(false)
+    })
+
+    it('网络异常时exporting状态正确重置', async () => {
+      vi.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Network Error'))
+
+      const { exporting, exportExcel } = useRevenue()
+
+      try {
+        await exportExcel({})
+      } catch {
+        // 预期抛出
+      }
+
+      expect(exporting.value).toBe(false)
+    })
+
+    it('导出时正确创建临时a标签并清理', async () => {
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        createExportResponse(mockExcelBlob, 'attachment; filename="cleanup_test.xlsx"'),
+      )
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({})
+
+      expect(document.querySelectorAll('a').length).toBe(0)
+    })
+
+    it('导出时调用 URL.createObjectURL 和 revokeObjectURL', async () => {
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce(
+        createExportResponse(mockExcelBlob),
+      )
+
+      const { exportExcel } = useRevenue()
+      await exportExcel({})
+
+      expect(window.URL.createObjectURL).toHaveBeenCalled()
+      expect(window.URL.revokeObjectURL).toHaveBeenCalled()
+    })
+  })
 })
