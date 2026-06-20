@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
-  Wallet, Users, SplitSquareVertical, Menu, X, Store } from 'lucide-vue-next'
+  Wallet, Users, SplitSquareVertical, CreditCard, Menu, X, Store } from 'lucide-vue-next'
 import { cn } from '@/lib/utils'
 
 const route = useRoute()
@@ -13,6 +13,7 @@ const navItems = [
   { name: '账户信息', path: '/', icon: Wallet },
   { name: '城市合伙人', path: '/partners', icon: Users },
   { name: '分账记录', path: '/splits', icon: SplitSquareVertical },
+  { name: '收款账户', path: '/bank-accounts', icon: CreditCard },
 ]
 
 function navigate(path: string) {

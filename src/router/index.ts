@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/pages/HomePage.vue'
 import CityPartnerPage from '@/pages/CityPartnerPage.vue'
 import SplitRecordPage from '@/pages/SplitRecordPage.vue'
+import BankAccountPage from '@/pages/BankAccountPage.vue'
 
 // 定义路由配置
 const routes = [
@@ -22,6 +23,12 @@ const routes = [
     name: 'splits',
     component: SplitRecordPage,
     meta: { title: '分账记录' },
+  },
+  {
+    path: '/bank-accounts',
+    name: 'bank-accounts',
+    component: BankAccountPage,
+    meta: { title: '收款账户' },
   },
   {
     path: '/about',

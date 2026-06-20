@@ -135,3 +135,48 @@ export type CityPartnerListResponse = ApiResponse<CityPartnerListData>
 export type CityPartnerResponse = ApiResponse<CityPartner>
 export type SplitRecordStatsResponse = ApiResponse<SplitRecordStatsData>
 export type SplitRecordListResponse = ApiResponse<SplitRecordListData>
+
+export type BankAccountType = 'debit' | 'credit' | 'public'
+export type BankAccountStatus = 'active' | 'inactive'
+
+export interface BankAccount {
+  id: string
+  accountName: string
+  bankBranch: string
+  accountNo: string
+  bankName?: string
+  type: BankAccountType
+  isDefault: boolean
+  status: BankAccountStatus
+  createdAt: string
+  remark?: string
+}
+
+export interface BankAccountForm {
+  accountName: string
+  bankBranch: string
+  accountNo: string
+  bankName?: string
+  type: BankAccountType
+  isDefault: boolean
+  status: BankAccountStatus
+  remark?: string
+}
+
+export interface BankAccountListData {
+  list: BankAccount[]
+  total: number
+  page: number
+  pageSize: number
+}
+
+export interface BankAccountListQuery {
+  page?: number
+  pageSize?: number
+  type?: string
+  status?: string
+  keyword?: string
+}
+
+export type BankAccountListResponse = ApiResponse<BankAccountListData>
+export type BankAccountResponse = ApiResponse<BankAccount>
