@@ -46,6 +46,7 @@ export interface RevenueListQuery {
   endDate?: string
   type?: string
   status?: string
+  [key: string]: unknown
 }
 
 export interface ApiResponse<T> {
@@ -91,6 +92,7 @@ export interface CityPartnerListQuery {
   city?: string
   status?: string
   keyword?: string
+  [key: string]: unknown
 }
 
 export type SplitRecordStatus = 'success' | 'pending' | 'failed'
@@ -129,6 +131,7 @@ export interface SplitRecordListQuery {
   endDate?: string
   partnerId?: string
   status?: string
+  [key: string]: unknown
 }
 
 export type CityPartnerListResponse = ApiResponse<CityPartnerListData>
@@ -176,7 +179,90 @@ export interface BankAccountListQuery {
   type?: string
   status?: string
   keyword?: string
+  [key: string]: unknown
 }
 
 export type BankAccountListResponse = ApiResponse<BankAccountListData>
 export type BankAccountResponse = ApiResponse<BankAccount>
+
+export type WithdrawStatus = 'pending' | 'processing' | 'success' | 'failed' | 'cancelled'
+
+export interface WithdrawRecord {
+  id: string
+  withdrawNo: string
+  amount: number
+  fee: number
+  actualAmount: number
+  bankAccountId: string
+  bankAccountName: string
+  bankName: string
+  bankBranch: string
+  accountNo: string
+  status: WithdrawStatus
+  applyTime: string
+  processTime?: string
+  completeTime?: string
+  remark?: string
+  failReason?: string
+}
+
+export interface WithdrawRecordStatsData {
+  recordCount: number
+  todayWithdrawAmount: number
+  monthWithdrawAmount: number
+  totalWithdrawAmount: number
+  processingCount: number
+}
+
+export interface WithdrawRecordListData {
+  list: WithdrawRecord[]
+  total: number
+  page: number
+  pageSize: number
+}
+
+export interface WithdrawRecordListQuery {
+  page?: number
+  pageSize?: number
+  startDate?: string
+  endDate?: string
+  status?: string
+  [key: string]: unknown
+}
+
+export interface WithdrawForm {
+  amount: number
+  bankAccountId: string
+  remark?: string
+}
+
+export interface WithdrawSubmitResult {
+  id: string
+  withdrawNo: string
+  amount: number
+  fee: number
+  actualAmount: number
+  status: WithdrawStatus
+}
+
+export type WithdrawStatsData = WithdrawRecordStatsData
+export type WithdrawListData = WithdrawRecordListData
+export type WithdrawListQuery = WithdrawRecordListQuery
+export type WithdrawStatsResponse = ApiResponse<WithdrawRecordStatsData>
+export type WithdrawRecordStatsResponse = ApiResponse<WithdrawRecordStatsData>
+export type WithdrawListResponse = ApiResponse<WithdrawRecordListData>
+export type WithdrawRecordListResponse = ApiResponse<WithdrawRecordListData>
+export type WithdrawSubmitResponse = ApiResponse<WithdrawSubmitResult>
+
+export interface ReconciliationExportQuery {
+  startDate: string
+  endDate: string
+  type: 'revenue' | 'split' | 'withdraw' | 'all'
+}
+
+export interface ListDataWithTotal<T> {
+  list: T[]
+  total: number
+  page: number
+  pageSize: number
+}

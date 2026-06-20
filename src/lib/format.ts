@@ -63,3 +63,23 @@ export const statusLabelMap: Record<string, string> = {
   failed: '失败',
 }
 
+export const withdrawStatusLabelMap: Record<string, string> = {
+  pending: '待处理',
+  processing: '处理中',
+  success: '成功',
+  failed: '失败',
+  cancelled: '已取消',
+}
+
+export function calculateWithdrawFee(cents: number): number {
+  return Math.floor(cents * 0.001)
+}
+
+export function maskBankAccount(accountNo: string): string {
+  if (accountNo.length <= 8) return accountNo
+  const head = accountNo.slice(0, 4)
+  const tail = accountNo.slice(-4)
+  const middle = '*'.repeat(Math.max(4, accountNo.length - 8))
+  return `${head} ${middle} ${tail}`
+}
+

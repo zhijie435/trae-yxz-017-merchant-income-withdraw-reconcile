@@ -58,3 +58,24 @@ export const bankAccountStatusLabelMap: Record<string, string> = {
   active: '已启用',
   inactive: '已停用',
 }
+
+export const withdrawStatusOptions = [
+  { value: '', label: '全部状态' },
+  { value: 'pending', label: '待处理' },
+  { value: 'processing', label: '处理中' },
+  { value: 'success', label: '成功' },
+  { value: 'failed', label: '失败' },
+  { value: 'cancelled', label: '已取消' },
+]
+
+export const withdrawStatusLabelMap: Record<string, string> = {
+  pending: '待处理',
+  processing: '处理中',
+  success: '成功',
+  failed: '失败',
+  cancelled: '已取消',
+}
+
+export const WITHDRAW_FEE_RATE = 0.001
+export const MIN_WITHDRAW_AMOUNT = 100
+export const MAX_WITHDRAW_AMOUNT = 5000000
