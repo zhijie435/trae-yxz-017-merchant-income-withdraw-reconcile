@@ -24,7 +24,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), // ✅ 定义 @ = src
+      '@': path.resolve(__dirname, './src'),
     },
   },
   server: {
@@ -46,5 +46,17 @@ export default defineConfig({
         },
       }
     }
-  }
+  },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    include: ['**/*.{test,spec}.{ts,tsx,js,jsx}'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+    },
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 })
