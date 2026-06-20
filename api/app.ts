@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url'
 import authRoutes from './routes/auth.js'
 import accountRoutes from './routes/account.js'
 import revenueRoutes from './routes/revenue.js'
+import partnerRoutes from './routes/partner.js'
 
 // for esm mode
 const __filename = fileURLToPath(import.meta.url)
@@ -34,6 +35,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 app.use('/api/auth', authRoutes)
 app.use('/api/account', accountRoutes)
 app.use('/api/revenue', revenueRoutes)
+app.use('/api/partner', partnerRoutes)
 
 /**
  * health

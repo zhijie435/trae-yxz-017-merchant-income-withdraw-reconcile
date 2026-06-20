@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/pages/HomePage.vue'
+import CityPartnerPage from '@/pages/CityPartnerPage.vue'
+import SplitRecordPage from '@/pages/SplitRecordPage.vue'
 
 // 定义路由配置
 const routes = [
@@ -7,6 +9,19 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomePage,
+    meta: { title: '账户信息' },
+  },
+  {
+    path: '/partners',
+    name: 'partners',
+    component: CityPartnerPage,
+    meta: { title: '城市合伙人' },
+  },
+  {
+    path: '/splits',
+    name: 'splits',
+    component: SplitRecordPage,
+    meta: { title: '分账记录' },
   },
   {
     path: '/about',
