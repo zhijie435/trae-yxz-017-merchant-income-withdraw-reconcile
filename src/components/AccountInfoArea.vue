@@ -12,7 +12,7 @@ import {
 import { useAccountInfo } from '@/composables/useAccountInfo'
 import MoneyStatCard from '@/components/MoneyStatCard.vue'
 
-const { accountInfo, loading, error, fetchAccountInfo } = useAccountInfo()
+const { accountInfo, availableAmount, loading, error, fetchAccountInfo } = useAccountInfo()
 
 const showWithdrawTip = ref(false)
 
@@ -113,7 +113,7 @@ onMounted(() => {
         />
         <MoneyStatCard
           label="可提现金额"
-          :cents="accountInfo.availableAmount"
+          :cents="availableAmount"
           :icon="HandCoins"
           variant="highlight"
           description="可立即发起提现的金额"

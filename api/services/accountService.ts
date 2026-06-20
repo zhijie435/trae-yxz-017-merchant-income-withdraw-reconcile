@@ -8,7 +8,9 @@ import { mockAccountInfo } from '../data/mockAccount.js'
 export async function fetchAccountInfo(): Promise<AccountInfoData> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(mockAccountInfo)
+      const data = { ...mockAccountInfo }
+      data.availableAmount = data.accountBalance - data.frozenAmount
+      resolve(data)
     }, 300)
   })
 }

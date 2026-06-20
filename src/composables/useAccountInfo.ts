@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type {
   AccountInfoData,
   AccountInfoResponse,
@@ -12,6 +12,11 @@ export function useAccountInfo() {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
+  const availableAmount = computed(() => {
+    if (!accountInfo.value) return 0
+    return accountInfo.value.accountBalance - accountInfo.value.frozenAmount
+  })
+
   async function fetchAccountInfo() {
     loading.value = true
     error.value = null
@@ -22,7 +27,9 @@ export function useAccountInfo() {
       }
       const json: AccountInfoResponse = await res.json()
       if (json.code === 0) {
-        accountInfo.value = json.data
+        const data = json.data
+        data.availableAmount = data.accountBalance - data.frozenAmount
+        accountInfo.value = data
       } else {
         error.value = json.message || '获取账户信息失败'
       }
@@ -33,5 +40,5 @@ export function useAccountInfo() {
     }
   }
 
-  return { accountInfo, loading, error, fetchAccountInfo }
+  return { accountInfo, availableAmount, loading, error, fetchAccountInfo }
 }
