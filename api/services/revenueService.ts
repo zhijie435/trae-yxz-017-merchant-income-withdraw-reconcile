@@ -28,11 +28,13 @@ function filterRecords(
 ): RevenueRecord[] {
   return records.filter((r) => {
     if (query.startDate) {
-      const d = r.tradeTime.slice(0, 10)
+      const date = new Date(r.tradeTime)
+      const d = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
       if (d < query.startDate) return false
     }
     if (query.endDate) {
-      const d = r.tradeTime.slice(0, 10)
+      const date = new Date(r.tradeTime)
+      const d = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
       if (d > query.endDate) return false
     }
     if (query.type && r.type !== query.type) return false
@@ -76,26 +78,53 @@ export async function exportRevenueExcel(
     setTimeout(() => {
       const filtered = filterRecords(mockRevenueRecords, query)
 
-      const excelData = filtered.map((r) => {
+      const statusMap: Record<string, string> = {
+        success: '成功',
+        pending: '处理中',
+        failed: '失败',
+      }
+
+      const filterInfo: string[] = ['导出筛选条件：']
+      if (query.startDate) filterInfo.push(`开始日期：${query.startDate}`)
+      if (query.endDate) filterInfo.push(`结束日期：${query.endDate}`)
+      if (query.type) filterInfo.push(`收益类型：${query.type}`)
+      if (query.status) filterInfo.push(`状态：${statusMap[query.status] || query.status}`)
+      filterInfo.push(`导出记录数：${filtered.length} 条`)
+      filterInfo.push(`导出时间：${new Date().toLocaleString('zh-CN')}`)
+
+      const aoaData: (string | number)[][] = []
+
+      for (const info of filterInfo) {
+        aoaData.push([info])
+      }
+
+      aoaData.push([])
+
+      aoaData.push([
+        '收益单号',
+        '关联订单',
+        '交易时间',
+        '收益类型',
+        '金额（元）',
+        '状态',
+        '备注',
+      ])
+
+      for (const r of filtered) {
         const date = new Date(r.tradeTime)
         const formattedTime = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
-        const statusMap: Record<string, string> = {
-          success: '成功',
-          pending: '处理中',
-          failed: '失败',
-        }
-        return {
-          '收益单号': r.id,
-          '关联订单': r.orderNo,
-          '交易时间': formattedTime,
-          '收益类型': r.type,
-          '金额（元）': (r.amount / 100).toFixed(2),
-          '状态': statusMap[r.status] || r.status,
-          '备注': r.remark,
-        }
-      })
+        aoaData.push([
+          r.id,
+          r.orderNo,
+          formattedTime,
+          r.type,
+          (r.amount / 100).toFixed(2),
+          statusMap[r.status] || r.status,
+          r.remark,
+        ])
+      }
 
-      const ws = XLSX.utils.json_to_sheet(excelData)
+      const ws = XLSX.utils.aoa_to_sheet(aoaData)
       ws['!cols'] = [
         { wch: 20 },
         { wch: 20 },
